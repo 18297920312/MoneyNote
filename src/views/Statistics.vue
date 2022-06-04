@@ -1,10 +1,12 @@
 <template>
-  <div>Money.vue</div>
+  <layout>
+    Statistics.vue
+  </layout>
 </template>
 
 <script lang="ts">
 export default {
-  name: "money"
+  name: "statistics"
 }
 </script>
 

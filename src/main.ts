@@ -3,9 +3,11 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-
-Vue.config.productionTip = false
-
+import Nav from "@/components/Nav.vue"
+import layout from "@/components/layout.vue"
+Vue.config.productionTip = false;
+Vue.component("Nav",Nav);
+Vue.component('layout',layout)
 new Vue({
   router,
   store,

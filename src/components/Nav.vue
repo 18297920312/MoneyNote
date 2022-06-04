@@ -6,9 +6,14 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
+import icon_money from "@/assets/icons/icon_money.svg"
+
+console.log(icon_money);
 export default {
   name: "Nav"
+
 }
 </script>
 
