@@ -1,13 +1,13 @@
 <template>
 <nav>
    <!-- name 是props单向传值 -->
-  <router-link to="/money" class="item">
+  <router-link to="/money" class="item" active-class="selected">
     <Icons name="money"/>记账
   </router-link>
-  <router-link to="/labels" class="item">
+  <router-link to="/labels" class="item" active-class="selected">
    <Icons name="label"/>标签
   </router-link>
-  <router-link to="/statistics" class="item">
+  <router-link to="/statistics" class="item" active-class="selected">
     <Icons name="statistics"/>统计
   </router-link>
 </nav>
@@ -39,6 +39,9 @@ export default {
         width: 32px;
         height: 32px;
       }
+    }
+    > .selected {
+      color: #cb9307;
     }
   }
 </style>
