@@ -1,0 +1,34 @@
+<template>
+ <div>
+    <Icon name="left" />
+    <span>编辑标签</span>
+ </div>
+</template>
+
+<script lang="ts">
+import vue from "vue";
+import {Component} from "vue-property-decorator";
+import tagListModel from "@/models/tagListModel";
+import Icon from "@/components/Icon.vue";
+@Component({
+  components: {Icon}
+})
+export default class EditLabel extends vue{
+  name:string = 'EditLabel'
+  created() {
+    const id = this.$route.params.id
+    tagListModel.fetch()
+    const tags = tagListModel.data
+    const tag = tags.filter(t => t.id === id)[0]
+    if(tag){
+      console.log(tag)
+    } else {
+      this.$router.replace('404')
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

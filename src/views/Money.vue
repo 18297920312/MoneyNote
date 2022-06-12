@@ -1,15 +1,17 @@
 <template>
   <layout>
     <NumberPad @update:value="onUpdateAmount"/>
-    <Types propMessage= "123" @update:value="onUpdateTypes"/>
-    <Tags @update:tags="onUpdateTags" @update:note="onUpdateNote"/>
-
+    <Types @update:value="onUpdateTypes"/>
+    <Notes @update:note="onUpdateNote"/>
+    <Tags @update:tags="onUpdateTags" />
+    {{recordList}}
   </layout>
 
 </template>
 
 <script lang="ts">
 import Tags from '@/components/Tags.vue'
+import Notes from '@/components/Notes.vue'
 import Types from '@/components/Types.vue'
 import NumberPad from '@/components/NumberPad.vue'
 import vue from "vue"
@@ -18,7 +20,7 @@ import {Watch} from "vue-property-decorator"
 import model from '@/models/recordListModels.ts'
 const recordList: RecordItem[] = model.fetch()
 @Component ({
-  components: {Tags,Types,NumberPad}
+  components: {Tags,Notes,Types,NumberPad}
 })
 export default class Money extends vue{
   record: RecordItem = {

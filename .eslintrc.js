@@ -1,4 +1,5 @@
 module.exports = {
+  'no-undef': 'off',
   root: true,
   env: {
     node: true

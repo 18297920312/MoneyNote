@@ -9,10 +9,10 @@
     <div class="new">
       <button @click="add">新增标签</button>
     </div>
-    <label class="notes">
-      <span class="name">备注</span>
-      <input type="test" placeholder="请输入备注" v-model="value"/>
-    </label>
+<!--    <label class="notes">-->
+<!--      <span class="name">备注</span>-->
+<!--      <input type="test" placeholder="请输入备注" v-model="value"/>-->
+<!--    </label>-->
   </div>
 </template>
 
@@ -25,11 +25,11 @@ export default class Tags extends vue {
   value = ''
   tags:string[] = ['衣','食','住','行','赵康']
   selectedTags:string[] = []
-  writeNote(event:KeyboardEvent){
-    const input = event.target as HTMLInputElement // 强制变换成输入元素
-    this.value = input.value
-    console.log(this.value)
-  }
+  // writeNote(event:KeyboardEvent){
+  //   const input = event.target as HTMLInputElement // 强制变换成输入元素
+  //   this.value = input.value
+  //   console.log(this.value)
+  // }
   toggle(tag:string){
     const index:number = this.selectedTags.indexOf(tag)
     if(index >= 0){
@@ -50,10 +50,7 @@ export default class Tags extends vue {
       alert('输入不能为空！')
     }
   }
-  @Watch('value')
-  onValueChange(value:string){
-    this.$emit('update:note',value)
-  }
+
 }
 </script>
 
