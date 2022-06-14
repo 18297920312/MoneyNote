@@ -1,12 +1,14 @@
 <template>
   <layout>
+  <div class="Layout">
     <NumberPad @update:value="onUpdateAmount"/>
     <Types @update:value="onUpdateTypes"/>
-    <Notes @update:note="onUpdateNote"/>
+    <Notes @update:note="onUpdateNote"
+            file-name="备注"
+            placeholder="请输入备注"/>
     <Tags @update:tags="onUpdateTags" />
-    {{recordList}}
+  </div>
   </layout>
-
 </template>
 
 <script lang="ts">
@@ -17,7 +19,7 @@ import NumberPad from '@/components/NumberPad.vue'
 import vue from "vue"
 import Component from "vue-class-component"
 import {Watch} from "vue-property-decorator"
-import model from '@/models/recordListModels.ts'
+import model from '@/models/recordListModels'
 const recordList: RecordItem[] = model.fetch()
 @Component ({
   components: {Tags,Notes,Types,NumberPad}
@@ -60,4 +62,10 @@ export default class Money extends vue{
 
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
+  .Layout {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    flex-grow: 1;
+  }
 </style>

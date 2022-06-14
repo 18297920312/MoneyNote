@@ -1,26 +1,27 @@
 <template>
   <div>
   <label class="notes">
-    <span class="name">备注</span>
-    <input type="text" placeholder="请输入备注" v-model="value" />
+    <span class="name">{{this.fileName}}</span>
+    <input type="text" :placeholder="placeholder" :value="value" @input="onValueChange($event.target.value)" />
   </label>
   </div>
 </template>
 
 <script lang="ts">
 import vue from "vue";
-import {Component, Watch} from "vue-property-decorator";
+import {Component, Watch,Prop} from "vue-property-decorator";
 @Component
 export default class Notes extends vue{
-  name ="Notes.vue"
+  // name ="Notes"
   value:string = ''
+  @Prop({required:true}) fileName!: string;
+  @Prop() placeholder?: string = '请输入';
   // writeNote(event:KeyboardEvent){
   //   const input = event.target as HTMLInputElement // 强制变换成输入元素
   //   this.value = input.value
   //   console.log(this.value)
   //   this.$emit('update:note',this.value)
   // }
-  @Watch('value')
   onValueChange(value:string){
     this.$emit('update:note',value)
   }

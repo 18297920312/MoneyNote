@@ -25,7 +25,7 @@ export default {
 }
 .content {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   flex-grow: 1;
 }
 </style>

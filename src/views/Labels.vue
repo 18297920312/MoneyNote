@@ -1,8 +1,5 @@
 <template>
   <layout class="layout">
-    <div class="createTag-wrapper">
-      <button class="createTag" @click="createTag">新建标签</button>
-    </div>
     <div class="tags">
       <router-link :to="`/Labels/edit/${tag.id}`"  class="tag"
                    v-for="tag in tags"  :key="tag.id">
@@ -10,22 +7,30 @@
         <Icons name="right" />
       </router-link>
     </div>
-
+    <div class="createTag-wrapper">
+      <!--      <button class="createTag" @click="createTag">新建标签</button>-->
+      <Button class="createTag" @click.native="createTag">新建标签</Button>
+    </div>
   </layout>
 </template>
 
 <script lang="ts">
   import vue from "vue";
   import {Component} from "vue-property-decorator";
-  import tagListModel from "@/models/tagListModel.ts";
+  import tagListModel from "@/models/tagListModel";
+  import Button from "@/components/Button.vue"
+  import createId from '@/lib/idCreate';
   tagListModel.fetch()
-  @Component
+  @Component({
+    components:{Button}
+  })
   export default class labels extends vue {
     name: string = "labels"
     tags = tagListModel.data
 
     createTag() {
       const name = window.prompt('标签标签名')
+      const id = createId()
       if (name) {
         try {
           tagListModel.create(name)
@@ -66,12 +71,12 @@
     }
   }
   .createTag {
-    background: #767676;
-    color: white;
-    border-radius: 5px;
-    border: none;
-    height: 40px;
-    padding: 0 16px;
+    //background: #767676;
+    //color: white;
+    //border-radius: 5px;
+    //border: none;
+    //height: 40px;
+    //padding: 0 16px;
     &-wrapper {
       text-align: center;
       padding: 16px;

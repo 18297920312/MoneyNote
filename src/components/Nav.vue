@@ -1,6 +1,6 @@
 <template>
 <nav>
-   <!-- name 是props单向传值 -->
+   <!-- name 是props单向传值 active-class点击就会选中 -->
   <router-link to="/money" class="item" active-class="selected">
     <Icons name="money"/>记账
   </router-link>
