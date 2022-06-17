@@ -6,12 +6,17 @@ import store from './store'
 import Nav from "@/components/Nav.vue"
 import layout from "@/components/Layout.vue"
 import Icons from "@/components/Icon.vue"
+import tagListModel from "@/models/tagListModel";
 Vue.config.productionTip = false;
 Vue.component("Nav",Nav)
 Vue.component('layout',layout)
 Vue.component('Icons',Icons)
+
+// window.tagList = tagListModel.fetch() // 全局的对象
+
+
 new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount( '#app')

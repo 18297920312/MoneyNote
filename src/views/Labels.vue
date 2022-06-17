@@ -20,27 +20,34 @@
   import tagListModel from "@/models/tagListModel";
   import Button from "@/components/Button.vue"
   import createId from '@/lib/idCreate';
-  tagListModel.fetch()
+  import TagHelper from "@/mixins/tagHelper";
+  import { mixins } from 'vue-class-component';
   @Component({
-    components:{Button}
-  })
-  export default class labels extends vue {
-    name: string = "labels"
-    tags = tagListModel.data
-
-    createTag() {
-      const name = window.prompt('标签标签名')
-      const id = createId()
-      if (name) {
-        try {
-          tagListModel.create(name)
-        } catch (error) {
-          if (error.message === 'duplicated') {
-            window.alert('标签名重复')
-          }
-        }
+    components:{Button},
+    computed: {
+      tags() {
+        return this.$store.state.tagList
       }
     }
+  })
+  export default class labels extends mixins(TagHelper) {
+    name: string = "labels"
+    tags = this.$store.commit('fetchTags')
+
+    // createTag() {
+    //   const name = window.prompt('标签标签名')
+    //   // const id = createId()
+    //   if (name) {
+    //     try {
+    //       this.$store.commit('createTag',name)
+    //       // tagListModel.create(name)
+    //     } catch (error) {
+    //       if (error.message === 'duplicated') {
+    //         window.alert('标签名重复')
+    //       }
+    //     }
+    //   }
+    // }
   }
 </script>
 

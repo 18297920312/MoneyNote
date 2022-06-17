@@ -32,7 +32,6 @@ export default class EditLabel extends vue{
     const tag = tags.filter(t => t.id === id)[0]
     if(tag){
       this.tag = tag
-      console.log(tag)
     } else {
       this.$router.replace('404')
     }

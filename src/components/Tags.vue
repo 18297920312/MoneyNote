@@ -1,13 +1,13 @@
 <template>
   <div class="tags">
     <ul class="current">
-      <li v-for="tag in tags" :key="tag"
+      <li v-for="tag in tagList" :key="tag.id"
           @click="toggle(tag)" :class="{selected:(selectedTags.indexOf(tag) >= 0)}">
-        {{tag}}
+        {{tag.name}}
       </li>
     </ul>
     <div class="new">
-      <button @click="add">新增标签</button>
+      <button @click="createTag">新增标签</button>
     </div>
 <!--    <label class="notes">-->
 <!--      <span class="name">备注</span>-->
@@ -19,17 +19,35 @@
 <script lang="ts">
 import vue from 'vue'
 import {Component, Watch} from "vue-property-decorator";
-@Component
-export default class Tags extends vue {
+import tagListModel from "@/models/tagListModel";
+import {mixins} from "vue-class-component";
+import tagHelper from "@/mixins/tagHelper";
+
+@Component({
+  computed: {
+    tagList() {
+      return this.$store.commit('fetchTags')
+    }
+  }
+})
+export default class Tags extends mixins(tagHelper) {
   name:string = "Tags.vue"
-  value = ''
-  tags:string[] = ['衣','食','住','行','赵康']
+  get tagList() {
+    return this.$store.state.tagList;
+  }
+  created() {
+    this.$store.commit('fetchTags');
+  }
+  // tags = this.$store.commit('fetchTags')
+  // value = ''
+  // tags:Tag[] = tagListModel.fetch() || []
   selectedTags:string[] = []
   // writeNote(event:KeyboardEvent){
   //   const input = event.target as HTMLInputElement // 强制变换成输入元素
   //   this.value = input.value
   //   console.log(this.value)
   // }
+
   toggle(tag:string){
     const index:number = this.selectedTags.indexOf(tag)
     if(index >= 0){
@@ -39,17 +57,20 @@ export default class Tags extends vue {
     }
     this.$emit('update:tags',this.selectedTags)
   }
-  add(){
-    const name:string = prompt('请输入新的标签名')!
-    if(this.tags.indexOf(name) >= 0){
-      return
-    }
-    if(name !== ''){
-      this.tags.push(name)
-    }else {
-      alert('输入不能为空！')
-    }
-  }
+  // add(){
+  //   const name:string = prompt('请输入新的标签名')!
+  //   this.$store.commit('createTag',name)
+    // tagListModel.create(name)
+    // const names = this.tags.map(item => item.name)
+    // if(names.indexOf(name) >= 0){
+    //   return
+    // }
+    // if(name !== ''){
+    //   this.tags.push(name)
+    // }else {
+    //   alert('输入不能为空！')
+    // }
+  // }
 
 }
 </script>
