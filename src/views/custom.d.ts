@@ -1,9 +1,14 @@
+type RootState = {
+    recordList: RecordItem[],
+    tagList: Tag[],
+    currentTag?: Tag
+}
 type RecordItem = {
     tags: string[]
     notes: string
     type: string
     amount: number
-    date?: Date
+    date?: string
 }
 type Tag = {
     id: string
@@ -16,7 +21,4 @@ type TagListModel = {
     update: (id:string,name:string) => 'success' | 'not found' | 'duplicated'
     remove: (id:string) => boolean
     save: () => void
-}
-interface Window{
-    tagList: Tag[]
 }

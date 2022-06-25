@@ -1,24 +1,30 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import clone from '@/lib/clone'
-import recordListModel from "@/models/recordListModel";
-import tagListModel from "@/models/tagListModel";
 import createId from "@/lib/idCreate";
 Vue.use(Vuex) // use 把 store 绑到 vue.prototype 上
+// type RootState = {
+//   recordList: RecordItem[],
+//   tagList: Tag[],
+//   currentTag?: Tag
+// }
 
 const store = new Vuex.Store({
   state: {
     recordList: [] as RecordItem[],
     tagList: [] as Tag[],
-  },
+    currentTag: undefined
+  } as RootState,
     mutations: {
+    setCurrnetTag(state,id:string) {
+      state.currentTag = state.tagList.filter(t => t.id === id)[0]
+    },
     fetchRecords(state) {
-      // state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[]
-      return state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[]
+       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[]
     },
       createRecord(state,record){
         const record2:RecordItem = clone(record)
-        record2.date = new Date()
+        record2.date = new Date().toISOString()
         state.recordList.push(record2)
         store.commit('saveRecords')
       },
@@ -26,7 +32,7 @@ const store = new Vuex.Store({
         window.localStorage.setItem('recordList',JSON.stringify(state.recordList))
       },
       fetchTags(state) {
-        return state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]')
+        state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]')
       },
       createTag(state,name:string) {
         const names = state.tagList.map(item => item.name)
@@ -43,6 +49,7 @@ const store = new Vuex.Store({
         }
         window.localStorage.setItem('tagList',JSON.stringify(state.tagList))
       },
+
     }
 })
 

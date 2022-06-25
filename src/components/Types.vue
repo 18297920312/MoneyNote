@@ -1,8 +1,9 @@
 <template>
   <div class="types">
     <ul>
-      <li :class="type === '-' && 'selected'" @click="typeSelected('-')">支出</li>
-      <li :class="type === '+' && 'selected'" @click="typeSelected('+')">收入</li>
+      <li :class="{[classPrefix+'-item']:classPrefix,selected: type === '-'}"
+          @click="typeSelected('-')" >支出</li>
+      <li :class="{[classPrefix+'-item']:classPrefix,selected: type === '+'}" @click="typeSelected('+')">收入</li>
     </ul>
   </div>
 </template>
@@ -13,6 +14,8 @@ import {Component,Prop,Watch} from "vue-property-decorator";
 
   @Component
   export default class Types extends  Vue{
+    @Prop(String) classPrefix?:string
+    @Prop(String) readonly value !: string
     type = '-'
     typeSelected(type:string){
       if(type !== '-' && type !== '+'){
@@ -25,18 +28,7 @@ import {Component,Prop,Watch} from "vue-property-decorator";
     onTypeChange(type:string){
       this.$emit('update:value',type)
     }
-//   name: "Types.vue",
-//   data() {
-//     return {
-//       type: '-',
-//     }
-//   },
-//   methods:{
-//     typeSelected(type){
-//       this.type = type
-//       console.log(type)
-//     }
-//   }
+
 }
 </script>
 

@@ -23,12 +23,7 @@ import tagListModel from "@/models/tagListModel";
 
 
 @Component ({
-  components: {Tags,Notes,Types,NumberPad},
-  computed: {
-    recordList() {
-      return this.$store.state.recordList
-    }
-  }
+  components: {Tags, Notes, Types, NumberPad},
 })
 export default class Money extends vue{
   // tags: Tag[] = window.tagList
@@ -37,7 +32,9 @@ export default class Money extends vue{
     tags: [],notes: '',type: '-',amount: 0
   }
 
-
+  get recordList(){
+    return this.$store.state.recordList
+  }
   onUpdateTags(value:string[]){
     console.log(value)
     this.record.tags = value
@@ -65,8 +62,6 @@ export default class Money extends vue{
   }
   @Watch('recordList')
   saveRecordChange(){
-    // window.localStorage.setItem('recordList',JSON.stringify(this.recordList))
-    // recordListModel.save()
     this.$store.commit('saveRecords',this.record)
   }
 

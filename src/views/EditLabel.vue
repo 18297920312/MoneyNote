@@ -7,7 +7,7 @@
     </div>
       <Notes class="notes" :value="tag.name" file-name="重置标签名:" placeholder="请输入标签名" @update:note="update" />
     <div class="ButtonBox">
-      <Button @click.native="remove">删除标签</Button>
+      <Button class="Button" @click.native="remove">删除标签</Button>
     </div>
   </Layout>
 </template>
@@ -21,18 +21,20 @@ import Icon from "@/components/Icon.vue";
 import Button from "@/components/Button.vue";
 import Layout from "@/components/Layout.vue";
 @Component({
-  components: {Button, Notes,Icon,Layout}
+  components: {Button, Notes,Icon,Layout},
+
 })
 export default class EditLabel extends vue{
-  tag?:{id:string,name:string} = undefined
+  // tag?:{id:string,name:string} = undefined
+  get tag(){
+    return this.$store.state.currentTag
+  }
   created() {
     const id = this.$route.params.id
-    tagListModel.fetch()
-    const tags = tagListModel.data
-    const tag = tags.filter(t => t.id === id)[0]
-    if(tag){
-      this.tag = tag
-    } else {
+    this.$store.commit('setCurrnetTag',id)
+    // const tags = tagListModel.data
+    // const tag = tags.filter(t => t.id === id)[0]
+    if(!this.tag) {
       this.$router.replace('404')
     }
   }

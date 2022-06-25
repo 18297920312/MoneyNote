@@ -23,15 +23,10 @@ import tagListModel from "@/models/tagListModel";
 import {mixins} from "vue-class-component";
 import tagHelper from "@/mixins/tagHelper";
 
-@Component({
-  computed: {
-    tagList() {
-      return this.$store.commit('fetchTags')
-    }
-  }
-})
+@Component
 export default class Tags extends mixins(tagHelper) {
   name:string = "Tags.vue"
+  selectedTags:string[] = []
   get tagList() {
     return this.$store.state.tagList;
   }
@@ -41,12 +36,7 @@ export default class Tags extends mixins(tagHelper) {
   // tags = this.$store.commit('fetchTags')
   // value = ''
   // tags:Tag[] = tagListModel.fetch() || []
-  selectedTags:string[] = []
-  // writeNote(event:KeyboardEvent){
-  //   const input = event.target as HTMLInputElement // 强制变换成输入元素
-  //   this.value = input.value
-  //   console.log(this.value)
-  // }
+
 
   toggle(tag:string){
     const index:number = this.selectedTags.indexOf(tag)

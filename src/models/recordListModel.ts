@@ -11,7 +11,7 @@ const model = {
         return JSON.parse(JSON.stringify(data))
     },
     create(record: RecordItem){
-        record.date = new Date()
+        record.date = new Date().toISOString()
         // const record2:RecordItem = JSON.parse(JSON.stringify(this.record))
         const record2: RecordItem = this.clone(record)
         this.data.push(record2)

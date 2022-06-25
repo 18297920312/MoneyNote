@@ -1,8 +1,7 @@
 <template>
   <layout class="layout">
     <div class="tags">
-      <router-link :to="`/Labels/edit/${tag.id}`"  class="tag"
-                   v-for="tag in tags"  :key="tag.id">
+      <router-link :to="`/Labels/edit/${tag.id}`"  class="tag" v-for="tag in tags"  :key="tag.id">
         <span>{{tag.name}}</span>
         <Icons name="right" />
       </router-link>
@@ -24,16 +23,17 @@
   import { mixins } from 'vue-class-component';
   @Component({
     components:{Button},
-    computed: {
-      tags() {
-        return this.$store.state.tagList
-      }
-    }
+
   })
   export default class labels extends mixins(TagHelper) {
     name: string = "labels"
-    tags = this.$store.commit('fetchTags')
-
+    // tags = this.$store.commit('fetchTags')
+    get tags(){
+      return this.$store.state.tagList
+    }
+    beforeCreate() {
+      this.$store.commit('fetchTags')
+    }
     // createTag() {
     //   const name = window.prompt('标签标签名')
     //   // const id = createId()
