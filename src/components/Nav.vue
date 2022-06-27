@@ -28,7 +28,7 @@ export default {
 <style lang="scss" scoped>
   nav {
     display: flex;
-    box-shadow: 0 0 3px rgba(0,0,0,0.25);
+    background-color: white;
     > .item {
       width: 33.333%;
       display: flex;
@@ -37,7 +37,7 @@ export default {
       flex-direction: column;
       .icon {
         width: 32px;
-        height: 32px;
+        height: 38px;
       }
     }
     > .selected {
