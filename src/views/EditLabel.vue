@@ -38,19 +38,24 @@ export default class EditLabel extends vue{
       this.$router.replace('404')
     }
   }
-  update(name:string){
+  update(value:string){
     if(this.tag){
-      tagListModel.update(this.tag.id,name)
+      this.$store.commit('updateTags',{id: this.tag.id,name:value})
+    // this.$store.commit('saveTags')
+      // tagListModel.update(this.tag.id,name)
+
     }
   }
   remove(){
-    if(this.tag){
-      if(tagListModel.remove(this.tag.id)){
-        this.$router.back()
-      } else {
-        window.alert('删除失败')
-      }
-    }
+    // if(this.tag){
+      this.$store.commit('removeTag',this.tag.id)
+      this.$router.back()
+      // if(this.$store.commit('removeTag',this.tag.id)){
+      //   this.$router.back()
+      // } else {
+      //   window.alert('删除失败')
+      // }
+    // }
   }
   goBack(){
     this.$router.back()

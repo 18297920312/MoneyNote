@@ -4,8 +4,7 @@
     <NumberPad @update:value="onUpdateAmount"/>
     <Types @update:value="onUpdateTypes"/>
     <Notes @update:note="onUpdateNote"
-            file-name="备注"
-            placeholder="请输入备注"/>
+            file-name="备注" placeholder="请输入备注" />
     <Tags @update:tags="onUpdateTags" />
   </div>
   </layout>

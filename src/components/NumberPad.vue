@@ -53,6 +53,7 @@ export default class NumberPad extends vue{
   }
   OK(){
     this.$emit('update:value',this.output)
+    alert('已保存')
     this.output = '0'
   }
 }

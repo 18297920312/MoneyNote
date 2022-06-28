@@ -43,13 +43,31 @@ const store = new Vuex.Store({
         store.commit('saveTags')
         return 'success'
       },
+      updateTags(state,newtag){
+        console.log(newtag.name)
+        console.log(newtag.id)
+        console.log(state.tagList[newtag.id - 1].name)
+        state.tagList[newtag.id - 1].name = newtag.name
+        store.commit('saveTags')
+      },
       saveTags(state){
         for(let i=0;i < state.tagList.length;i++) {
           state.tagList[i].id = (i+1).toString()
         }
         window.localStorage.setItem('tagList',JSON.stringify(state.tagList))
       },
-
+      removeTag(state,id){
+          let index = -1
+          for (let i = 0;i < state.tagList.length;i++) {
+            if (state.tagList[i].id === id){
+              index = i
+              break
+            }
+          }
+          state.tagList.splice(index,1)
+          store.commit('saveTags')
+          return true
+      }
     }
 })
 

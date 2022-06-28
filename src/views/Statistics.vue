@@ -1,20 +1,23 @@
 <template>
     <layout class="layout">
       <Tabs class-prefix="type" :data-source="typeList" :value.sync="type"/>
-      <Tabs :data-source="intervalList" :value.sync="interval" />
       <div>
-        <ol>
+        <ol v-if="result !== null">
           <li v-for="(group,index) in result" :key="index">
-            <h3 class="title">{{beautify(group.title)}}</h3>
+            <h3 class="title">
+              <span>{{beautify(group.title)}}</span>
+              <span>总计：{{group.sum}}元</span>
+            </h3>
             <ol>
               <li v-for="item in group.items" :key="item.id" class="record">
-                 <span>{{toString(item.tags)}}</span>
+                <span>{{tagString(item.tags)}}</span>
                 <span class="note">{{item.notes}}</span>
                 <span>¥ {{item.amount}}</span>
               </li>
             </ol>
           </li>
         </ol>
+        <div  v-else class="noResult">还没有任何数据</div>
       </div>
     </layout>
 </template>
@@ -24,26 +27,35 @@ import Types from "@/components/Types.vue";
 import {Component,Watch} from "vue-property-decorator";
 import vue from "vue";
 import Tabs from "@/components/Tabs.vue";
-import intervalList from '@/constants/intervalList';
 import typeList from '@/constants/recordTypeList';
-let dayjs = require('dayjs')
+import clone from "@/lib/clone";
+const dayjs = require('dayjs')
 @Component({
   components:{Tabs, Types}
 })
 export default class Statistics extends vue{
   type = '-'
-  interval = 'day'
-  intervalList = intervalList
   typeList = typeList
   get result(){
     const {recordList} = this
-    const hashTable: { [key:string]: {title:string,items: any}[] } = {}
-    for(let i = 0;i < recordList.length;i++){
-      const [date,time] = recordList[i].date.split('T')
-      hashTable[date] = hashTable[date] || {title: date,items: []}
-      hashTable[date].items.push(recordList[i])!
+    // type HashTableValue = { title: string,items: RecordItem[]}
+    let sortList = clone(recordList).filter( (r: { type: string }) => r.type === this.type)
+    console.log(sortList)
+    if(sortList.length === 0) return null;
+    sortList.sort((a: any, b: any) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf())
+    const dispalyList = [{title: dayjs(sortList[0].date).format('YYYY-MM-DD'),items: [sortList[0]],sum: sortList[0].amount}]
+    for(let i = 1;i < sortList.length;i++){
+      const current = sortList[i]
+      const last = dispalyList[dispalyList.length - 1]
+      if(dayjs(last.title).isSame(dayjs(current.date),"day")){
+        last.items.push(current)
+        last.sum += current.amount
+      }else {
+        dispalyList.push({title: dayjs(current.date).format('YYYY-MM-DD'),items: [current],sum: current.amount})
+      }
     }
-    return hashTable
+    // console.log(dispalyList)
+    return dispalyList
   }
   beautify(string: string){
     const day = dayjs(string)
@@ -68,7 +80,8 @@ export default class Statistics extends vue{
     this.$store.commit('fetchRecords')
   }
   tagString(tags: Tag[]){
-    return tags.length === 0 ? '无' :  tags.join(',')
+    const newTags = tags.map(t => t.name)
+    return newTags.length === 0 ? '无' :  newTags.join('，')
   }
 
 }
@@ -102,9 +115,14 @@ export default class Statistics extends vue{
     justify-content: space-between;
     align-items: center;
   }
+  .noResult {
+    margin: 30px;
+    text-align: center;
+  }
    ::v-deep {
      .type-tabs-item{
        background-color: white;
+       border-bottom: 1px dashed darkgrey;
        &.selected {
          background: #C4C4C4;
          &::after {

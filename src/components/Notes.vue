@@ -2,7 +2,7 @@
   <div>
   <label class="notes">
     <span class="name">{{this.fileName}}</span>
-    <input type="text" :placeholder="placeholder" :value="value" @input="onValueChange($event.target.value)" />
+    <input type="text"  :placeholder="placeholder" :value="value" @input="onValueChange($event.target.value)" />
   </label>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default class Notes extends vue{
   // name ="Notes"
   value:string = ''
   @Prop({required:true}) fileName!: string;
-  @Prop() placeholder?: string = '请输入';
+  @Prop() placeholder?: string;
   // writeNote(event:KeyboardEvent){
   //   const input = event.target as HTMLInputElement // 强制变换成输入元素
   //   this.value = input.value
@@ -23,6 +23,7 @@ export default class Notes extends vue{
   //   this.$emit('update:note',this.value)
   // }
   onValueChange(value:string){
+    console.log(value)
     this.$emit('update:note',value)
   }
 }
