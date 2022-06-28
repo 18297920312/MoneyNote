@@ -40,6 +40,7 @@ export default class EditLabel extends vue{
   }
   update(value:string){
     if(this.tag){
+      // console.log(this.tag.id)
       this.$store.commit('updateTags',{id: this.tag.id,name:value})
     // this.$store.commit('saveTags')
       // tagListModel.update(this.tag.id,name)

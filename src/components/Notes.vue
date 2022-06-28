@@ -23,7 +23,7 @@ export default class Notes extends vue{
   //   this.$emit('update:note',this.value)
   // }
   onValueChange(value:string){
-    console.log(value)
+    // console.log(value)
     this.$emit('update:note',value)
   }
 }

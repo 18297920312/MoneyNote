@@ -40,7 +40,7 @@ export default class Statistics extends vue{
     const {recordList} = this
     // type HashTableValue = { title: string,items: RecordItem[]}
     let sortList = clone(recordList).filter( (r: { type: string }) => r.type === this.type)
-    console.log(sortList)
+    // console.log(sortList)
     if(sortList.length === 0) return null;
     sortList.sort((a: any, b: any) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf())
     const dispalyList = [{title: dayjs(sortList[0].date).format('YYYY-MM-DD'),items: [sortList[0]],sum: sortList[0].amount}]

@@ -38,16 +38,29 @@ const store = new Vuex.Store({
         const names = state.tagList.map(item => item.name)
         if (names.indexOf(name) >= 0) {return 'duplicated'}
         const id = createId().toString()
-        console.log(id,name)
         state.tagList.push({id:id,name:name})
         store.commit('saveTags')
         return 'success'
       },
       updateTags(state,newtag){
-        console.log(newtag.name)
-        console.log(newtag.id)
-        console.log(state.tagList[newtag.id - 1].name)
         state.tagList[newtag.id - 1].name = newtag.name
+        // console.log(newtag.id)
+        // console.log(newtag.name)
+        // console.log('--------')
+        for(let i=0;i < state.recordList.length;i++){
+          state.recordList[i].tags.forEach(item => {
+            // @ts-ignore
+            if(item.id === newtag.id){
+              // @ts-ignore
+              console.log('之前'+item.name)
+              // @ts-ignore
+              item.name = newtag.name
+              // @ts-ignore
+              console.log('之后'+item.name)
+            }
+          })
+        }
+        store.commit('saveRecords')
         store.commit('saveTags')
       },
       saveTags(state){

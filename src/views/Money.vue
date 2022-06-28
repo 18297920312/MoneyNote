@@ -35,20 +35,20 @@ export default class Money extends vue{
     return this.$store.state.recordList
   }
   onUpdateTags(value:string[]){
-    console.log(value)
+    // console.log(value)
     this.record.tags = value
   }
   onUpdateNote(value:string){
-    console.log(value)
+    // console.log(value)
     this.record.notes = value
   }
   onUpdateTypes(value:string){
-    console.log(value)
+    // console.log(value)
     this.record.type = value
   }
   onUpdateAmount(value:string){
     const num:number = parseFloat(value)
-    console.log(num)
+    // console.log(num)
     this.record.amount = num
     this.$store.commit('createRecord',this.record)
     // this.record.date = new Date()
