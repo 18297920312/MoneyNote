@@ -20,3 +20,23 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount( '#app')
+
+if(document.documentElement.clientWidth >= 500){
+  window.alert('请使用手机扫描二维码访问')
+  const img = document.createElement('img')
+  img.src = '/qrcode.png'
+  img.style.position = 'fixed'
+  img.style.left = '50%'
+  img.style.top = '50%'
+  img.style.transform = 'translate(-50%,-50%)'
+  document.body.appendChild(img)
+}
+
+
+
+
+
+
+
+
+
