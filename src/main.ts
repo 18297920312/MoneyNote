@@ -24,7 +24,7 @@ new Vue({
 if(document.documentElement.clientWidth >= 500){
   window.alert('请使用手机扫描二维码访问')
   const img = document.createElement('img')
-  img.src = '/qrcode.png'
+  img.src = '../public/qrcode.png'
   img.style.position = 'fixed'
   img.style.left = '50%'
   img.style.top = '50%'
