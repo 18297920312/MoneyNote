@@ -14,8 +14,8 @@
 <style lang="scss">
 @import "~@/assets/style/helper.scss";
   *{
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-size: $fonts;
   }
@@ -31,6 +31,9 @@
   }
   button,input {
     font: inherit;
+  }
+  #app {
+      max-width: 500px;
   }
   :focus {
     outline: none;
